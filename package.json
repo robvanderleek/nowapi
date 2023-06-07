@@ -24,6 +24,9 @@
   "bin": {
     "nowapi": "dist/index.js"
   },
+  "engines": {
+    "node": ">=18.x"
+  },
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc && chmod a+x ./dist/index.js",
