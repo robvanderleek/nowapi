@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 import {program} from "commander";
 import {login, logout, me} from "./github";
-import {createHost, deleteHost, listHosts} from "./nowapi";
+import {createHost, deleteHost, listHosts} from "./nowapi/host";
+import 'dotenv/config';
+import {createEndpoint, deleteEndpoint, listEndpoints} from "./nowapi/endpoint";
 
 const packageJson = require('../package.json');
 
@@ -19,16 +21,18 @@ program
     .description('Show current user')
     .action(() => me());
 program
-    .command('create-host')
-    .description('Create new host')
-    .action(() => createHost());
+    .command('new [<host>]')
+    .description('Create new host/endpoint')
+    .action((host) => host ? createEndpoint(host) : createHost());
 program
-    .command('list-hosts')
-    .description('List hosts')
-    .action(() => listHosts());
+    .command('list [<host>]')
+    .alias('ls')
+    .description('List hosts/endpoints')
+    .action((host) => host ? listEndpoints(host) : listHosts());
 program
-    .command('delete-host <host>')
+    .command('remove <host> [<endpoint>]')
+    .alias('rm')
     .description('Delete host')
-    .action((host) => deleteHost(host));
+    .action((host, endpoint) => endpoint ? deleteEndpoint(host, endpoint) : deleteHost(host));
 
 program.parse(process.argv);
