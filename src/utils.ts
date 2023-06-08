@@ -40,3 +40,7 @@ export function clearNowapiFolder() {
     const folder = initNowapiFolder();
     fs.readdirSync(folder).forEach(f => f.endsWith(".json") && fs.rmSync(`${folder}/${f}`));
 }
+
+export function getHost() {
+    return process.env.NOWAPI_HOST || 'https://nowapi.vercel.app';
+}
