@@ -1,4 +1,4 @@
-import {clearNowapiFolder, initNowapiFolder, readAccessToken, sleep} from "./utils";
+import {clearNowapiFolder, initNowapiFolder, readRefreshToken, sleep} from "./utils";
 import fs from "fs";
 import path from "path";
 import signale from "signale";
@@ -25,12 +25,25 @@ async function fetchRequestToken(deviceCode: string) {
     return await res.json();
 }
 
+async function fetchAccessToken(refreshToken: string) {
+    const endpoint = 'https://github.com/login/oauth/access_token';
+    const parameters = new URLSearchParams({
+        client_id: CLIENT_ID,
+        grant_type: 'refresh_token',
+        refresh_token: refreshToken
+    });
+    const headers = {"Accept": "application/json"};
+    const res = await fetch(endpoint + '?' + parameters.toString(), {method: 'POST', headers: headers});
+    return await res.json();
+}
+
 export async function login() {
     const {device_code, verification_uri, user_code, interval} = await fetchDeviceCode();
     signale.info(`Please visit: ${verification_uri}`);
     signale.info(`and enter code: ${user_code}`);
     let response = await fetchRequestToken(device_code);
     let accessToken = response['access_token'];
+    let refreshToken = response['refresh_token'];
     while (accessToken === undefined) {
         const error = response['error'];
         switch (error) {
@@ -52,14 +65,27 @@ export async function login() {
         }
         response = await fetchRequestToken(device_code);
         accessToken = response['access_token'];
+        refreshToken = response['refresh_token'];
     }
     const nowapiFolder = initNowapiFolder();
-    fs.writeFileSync(path.join(nowapiFolder, 'credentials.json'), JSON.stringify({'access_token': accessToken}));
+    fs.writeFileSync(path.join(nowapiFolder, 'credentials.json'), JSON.stringify({'refresh_token': refreshToken}));
     signale.success('Authenticated!');
 }
 
+export async function getAccessToken(): Promise<string | undefined> {
+    const refreshToken = readRefreshToken();
+    if (refreshToken) {
+        const response = await fetchAccessToken(refreshToken);
+        const accessToken = response['access_token'];
+        const newRefreshToken = response['refresh_token'];
+        const nowapiFolder = initNowapiFolder();
+        fs.writeFileSync(path.join(nowapiFolder, 'credentials.json'), JSON.stringify({'refresh_token': newRefreshToken}));
+        return accessToken;
+    }
+}
+
 export async function me() {
-    const accessToken = readAccessToken();
+    const accessToken = await getAccessToken();
     if (accessToken) {
         const endpoint = 'https://api.github.com/user';
         const headers = {"Accept": "application/json", 'Authorization':  `Bearer ${accessToken}`}

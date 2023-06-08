@@ -25,7 +25,7 @@ export function initNowapiFolder() {
     return folderLocation;
 }
 
-export function readAccessToken(): string | undefined {
+export function readRefreshToken(): string | undefined {
     const nowapiFolder = initNowapiFolder();
     const credentialsFile = path.join(nowapiFolder, 'credentials.json');
     if (!fs.existsSync(credentialsFile)) {
@@ -33,7 +33,7 @@ export function readAccessToken(): string | undefined {
         return undefined;
     }
     const content = fs.readFileSync(credentialsFile).toString();
-    return JSON.parse(content)['access_token'];
+    return JSON.parse(content)['refresh_token'];
 }
 
 export function clearNowapiFolder() {
