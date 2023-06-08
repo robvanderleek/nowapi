@@ -1,5 +1,5 @@
 {
-  "name": "nowapi",
+  "name": "nowapi-cli",
   "version": "0.1.0",
   "author": "robvanderleek@gmail.com",
   "description": "NowAPI CLI",

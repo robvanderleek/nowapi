@@ -1,3 +1,5 @@
 # NowAPI
 
-[![logo](docs/nowapi-logo.png)]
+![Logo](docs/nowapi-logo.png)
+
+When you need an API Now.
