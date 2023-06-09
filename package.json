@@ -33,10 +33,10 @@
     "test": "jest",
     "start": "yarn build && node ./dist/index.js",
     "dist:build": "ncc build dist/index.js -o dist-ncc",
-    "dist:pkg:linux": "pkg -t node16-linuxstatic-x64,node16-linuxstatic-arm64 -o nowapi-linuxstatic dist-ncc/index.js",
-    "dist:pkg:windows": "pkg -t node16-win-x64 -o nowapi-win-x64 dist-ncc/index.js",
-    "dist:pkg:macos": "pkg -t node16-macos-arm64 -o nowapi-macos dist-ncc/index.js",
-    "dist:bundle": "tar czf nowapi-linuxstatic-x64.tgz nowapi"
+    "dist:pkg:linux": "pkg -t node18-linuxstatic-x64,node18-linuxstatic-arm64 -o nowapi-linuxstatic dist-ncc/index.js",
+    "dist:pkg:windows": "pkg -t node18-win-x64 -o nowapi dist-ncc/index.js",
+    "dist:pkg:macos": "pkg -t node18-macos-arm64 -o nowapi dist-ncc/index.js",
+    "dist:bundle:macos": "tar czf nowapi-macos.tgz nowapi"
   },
   "license": "ISC",
   "dependencies": {

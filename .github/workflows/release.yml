@@ -38,8 +38,16 @@ jobs:
       run: yarn install
     - name: 'Compile TypeScript'
       run: yarn build
-    - name: 'Create distribution'
-      run: yarn dist:build && yarn dist:pkg:linux && yarn dist:pkg:windows
+    - name: 'Create distribution build'
+      run: yarn dist:build
+    - name: 'Create Linux binaries'
+      run: yarn dist:pkg:linux 
+    - name: 'Create Windows binary'
+      run: yarn dist:pkg:windows
+    - name: 'Create macOS binary'
+      run: yarn dist:pkg:macos
+    - name: 'Bundle macOS binary'
+      run: yarn dist:bundle:macos
     - name: 'Add assets to release'
       uses: softprops/action-gh-release@v1
       if: startsWith(github.ref, 'refs/tags/')
@@ -48,3 +56,4 @@ jobs:
           nowapi-linuxstatic-x64
           nowapi-linuxstatic-arm64
           nowapi-win-x64.exe
+          nowapi-macos.tgz
