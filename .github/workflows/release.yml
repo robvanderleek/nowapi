@@ -1,0 +1,50 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  createrelease:
+    name: Create Release
+    runs-on: [ubuntu-latest]
+    steps:
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: false
+        prerelease: false
+  build:
+    name: Build packages
+    needs: createrelease
+    defaults:
+      run:
+        shell: bash
+    runs-on: ubuntu-latest
+    steps:
+    - name: 'Checkout sources'
+      uses: actions/checkout@v3
+    - name: 'Setup NodeJS'
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18.x'
+    - name: 'Install dependencies'
+      run: yarn install
+    - name: 'Compile TypeScript'
+      run: yarn build
+    - name: 'Create distribution'
+      run: yarn dist:build && yarn dist:pkg:linux && yarn dist:pkg:windows
+    - name: 'Add assets to release'
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: |
+          nowapi-linuxstatic-x64
+          nowapi-linuxstatic-arm64
+          nowapi-win-x64.exe

@@ -32,6 +32,7 @@
     "build": "tsc && chmod a+x ./dist/index.js",
     "test": "jest",
     "start": "yarn build && node ./dist/index.js",
+    "dist:build": "ncc build dist/index.js -o dist-ncc",
     "dist:pkg:linux": "pkg -t node16-linuxstatic-x64,node16-linuxstatic-arm64 -o nowapi-linuxstatic dist-ncc/index.js",
     "dist:pkg:windows": "pkg -t node16-win-x64 -o nowapi-win-x64 dist-ncc/index.js",
     "dist:pkg:macos": "pkg -t node16-macos-arm64 -o nowapi-macos dist-ncc/index.js",
