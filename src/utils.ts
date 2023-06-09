@@ -1,6 +1,6 @@
 import os from "os";
 import path from "path";
-import fs, {readFileSync} from "fs";
+import fs from "fs";
 import signale from "signale";
 
 export async function sleep(seconds: number) {
@@ -25,15 +25,14 @@ export function initNowapiFolder() {
     return folderLocation;
 }
 
-export function readRefreshToken(): string | undefined {
+export function readCredentialsFile(): {accessToken: string, refreshToken: string} {
     const nowapiFolder = initNowapiFolder();
     const credentialsFile = path.join(nowapiFolder, 'credentials.json');
     if (!fs.existsSync(credentialsFile)) {
-        signale.error('Could not find credentials file');
-        return undefined;
+        throw new Error('Could not find credentials file')
     }
     const content = fs.readFileSync(credentialsFile).toString();
-    return JSON.parse(content)['refresh_token'];
+    return JSON.parse(content) as {accessToken: string, refreshToken: string};
 }
 
 export function clearNowapiFolder() {

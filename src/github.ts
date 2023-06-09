@@ -1,4 +1,4 @@
-import {clearNowapiFolder, initNowapiFolder, readRefreshToken, sleep} from "./utils";
+import {clearNowapiFolder, initNowapiFolder, readCredentialsFile, sleep} from "./utils";
 import fs from "fs";
 import path from "path";
 import signale from "signale";
@@ -68,27 +68,47 @@ export async function login() {
         refreshToken = response['refresh_token'];
     }
     const nowapiFolder = initNowapiFolder();
-    fs.writeFileSync(path.join(nowapiFolder, 'credentials.json'), JSON.stringify({'refresh_token': refreshToken}));
+    fs.writeFileSync(path.join(nowapiFolder, 'credentials.json'), JSON.stringify({
+        'refreshToken': refreshToken,
+        'accessToken': accessToken
+    }));
     signale.success('Authenticated!');
 }
 
 export async function getAccessToken(): Promise<string | undefined> {
-    const refreshToken = readRefreshToken();
-    if (refreshToken) {
-        const response = await fetchAccessToken(refreshToken);
-        const accessToken = response['access_token'];
-        const newRefreshToken = response['refresh_token'];
-        const nowapiFolder = initNowapiFolder();
-        fs.writeFileSync(path.join(nowapiFolder, 'credentials.json'), JSON.stringify({'refresh_token': newRefreshToken}));
-        return accessToken;
+    const {accessToken, refreshToken} = readCredentialsFile();
+    if (accessToken) {
+        if (await isAccessTokenValid(accessToken)) {
+            return accessToken;
+        } else {
+            const response = await fetchAccessToken(refreshToken);
+            const newAccessToken = response['access_token'];
+            const newRefreshToken = response['refresh_token'];
+            const nowapiFolder = initNowapiFolder();
+            fs.writeFileSync(path.join(nowapiFolder, 'credentials.json'), JSON.stringify({
+                'refreshToken': newRefreshToken,
+                'accessToken': newAccessToken
+            }));
+            return newAccessToken;
+        }
     }
+}
+
+async function isAccessTokenValid(accessToken: string): Promise<boolean> {
+    const headers = {'Authorization': `Bearer ${accessToken}`};
+    const res = await fetch('https://api.github.com/users/codertocat', {headers: headers});
+    const headerField = res.headers.get('X-RateLimit-Limit')
+    if (headerField) {
+        return parseInt(headerField) === 5000;
+    }
+    return false;
 }
 
 export async function me() {
     const accessToken = await getAccessToken();
     if (accessToken) {
         const endpoint = 'https://api.github.com/user';
-        const headers = {"Accept": "application/json", 'Authorization':  `Bearer ${accessToken}`}
+        const headers = {"Accept": "application/json", 'Authorization': `Bearer ${accessToken}`}
         const res = await fetch(endpoint, {headers: headers});
         const json = await res.json();
         signale.info(`Logged in user: ${json['login']}`);
