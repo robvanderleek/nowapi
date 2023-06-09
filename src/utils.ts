@@ -2,6 +2,7 @@ import os from "os";
 import path from "path";
 import fs from "fs";
 import signale from "signale";
+import chalk from "chalk";
 
 export async function sleep(seconds: number) {
     return new Promise((r) => setTimeout(r, seconds * 1000));
@@ -42,4 +43,8 @@ export function clearNowapiFolder() {
 
 export function getHost() {
     return process.env.NOWAPI_HOST || 'https://nowapi.vercel.app';
+}
+
+export function printHeader(text: string) {
+    console.log(chalk.bold(text));
 }

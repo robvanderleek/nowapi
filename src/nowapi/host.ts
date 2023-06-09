@@ -1,5 +1,7 @@
 import signale from "signale";
 import {apiGet, apiPost} from "./api";
+import {getHost, printHeader} from "../utils";
+import chalk from "chalk";
 
 export async function createHost() {
     const result = await apiPost('host/create');
@@ -8,8 +10,10 @@ export async function createHost() {
 
 export async function listHosts() {
     const result = await apiGet('host/list');
+    printHeader('Your hosts:');
     for (const host of result) {
-        signale.info(`Host: ${host}`);
+        const url = `${getHost()}/api/hosts/${host}`;
+        console.log(`- ${chalk.green(host)} (${url})`);
     }
 }
 

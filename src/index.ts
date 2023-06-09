@@ -21,9 +21,15 @@ program
     .description('Show current user')
     .action(() => me());
 program
-    .command('new [<host>]')
-    .description('Create new host/endpoint')
-    .action((host) => host ? createEndpoint(host) : createHost());
+    .command('new')
+    .description('Create new host')
+    .action(() => createHost());
+program
+    .command('add <host> <path>')
+    .description('Create new endpoint on host')
+    .option('-s, --status-code <number>', 'Status code', '200')
+    .option('-b, --body <text>', 'Body', '')
+    .action((host, path, options) => createEndpoint(host, path, parseInt(options.statusCode), options.body));
 program
     .command('list [<host>]')
     .alias('ls')
@@ -32,7 +38,7 @@ program
 program
     .command('remove <host> [<endpoint>]')
     .alias('rm')
-    .description('Delete host')
+    .description('Delete host/endpoint')
     .action((host, endpoint) => endpoint ? deleteEndpoint(host, endpoint) : deleteHost(host));
 
 program.parse(process.argv);
