@@ -1,5 +1,5 @@
-import {getHost} from "../utils";
-import {getAccessToken} from "../github";
+import {getHost} from "../utils.js";
+import {getAccessToken} from "../github.js";
 
 export async function apiPost(endpoint: string, data?: object) {
     const accessToken = await getAccessToken();

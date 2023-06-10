@@ -8,7 +8,9 @@
     "strict": true,
     "target": "es6",
     "resolveJsonModule": true,
-    "module": "CommonJS",
+    "module": "node16",
+    "moduleResolution": "node16",
+    "resolveJsonModule": false,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true

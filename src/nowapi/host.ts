@@ -1,16 +1,19 @@
-import signale from "signale";
-import {apiGet, apiPost} from "./api";
-import {getHost, printHeader} from "../utils";
 import chalk from "chalk";
+import ora from "ora";
+import {getHost, printInfo} from "../utils.js";
+import {apiGet, apiPost} from "./api.js";
 
 export async function createHost() {
+    const spinner = ora({spinner: 'earth', text: 'Creating new host...', color: 'white'}).start();
     const result = await apiPost('host/create');
-    signale.info(`Host created: ${result['host']}`);
+    spinner.succeed(`Host created: ${result['host']}`);
 }
 
 export async function listHosts() {
+    const spinner = ora({spinner: 'earth', text: 'Loading hosts...', color: 'white'}).start();
     const result = await apiGet('host/list');
-    printHeader('Your hosts:');
+    spinner.succeed();
+    printInfo('Your hosts:');
     for (const host of result) {
         const baseUrl = `${getHost()}/api/hosts`;
         console.log(`- ${chalk.green(host)}`);
@@ -19,6 +22,7 @@ export async function listHosts() {
 }
 
 export async function deleteHost(host: string) {
+    const spinner = ora({spinner: 'earth', text: 'Deleting host...', color: 'white'}).start();
     await apiPost('host/delete', {name: host});
-    signale.success(`Host deleted: ${host}`);
+    spinner.succeed(`Host deleted: ${host}`);
 }

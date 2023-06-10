@@ -45,6 +45,15 @@ export function getHost() {
     return process.env.NOWAPI_HOST || 'https://nowapi.vercel.app';
 }
 
-export function printHeader(text: string) {
+export function printInfo(text: string) {
     console.log(chalk.bold(text));
 }
+
+export function printSuccess(text: string) {
+    console.log(chalk.green(text));
+}
+
+export function printError(text: string) {
+    console.log(chalk.red(text));
+}
+

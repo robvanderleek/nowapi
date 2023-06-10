@@ -1,7 +1,15 @@
-import {clearNowapiFolder, initNowapiFolder, readCredentialsFile, sleep} from "./utils";
 import fs from "fs";
 import path from "path";
-import signale from "signale";
+import {
+    clearNowapiFolder,
+    initNowapiFolder,
+    printError,
+    printInfo,
+    printSuccess,
+    readCredentialsFile,
+    sleep
+} from "./utils.js";
+import chalk from "chalk";
 
 const CLIENT_ID = 'Iv1.e3052d750bc19d80';
 
@@ -39,8 +47,8 @@ async function fetchAccessToken(refreshToken: string) {
 
 export async function login() {
     const {device_code, verification_uri, user_code, interval} = await fetchDeviceCode();
-    signale.info(`Please visit: ${verification_uri}`);
-    signale.info(`and enter code: ${user_code}`);
+    console.log(`Please visit: ${chalk.bold(verification_uri)}`);
+    console.log(`and enter code: ${chalk.bold(user_code)}`);
     let response = await fetchRequestToken(device_code);
     let accessToken = response['access_token'];
     let refreshToken = response['refresh_token'];
@@ -54,11 +62,11 @@ export async function login() {
                 await sleep(interval);
                 break;
             case 'expired_token':
-                signale.error('Device code expired, please run `login` again.');
+                printError('Device code expired, please run `login` again.');
                 process.exit(1);
                 break;
             case 'access_denied':
-                signale.error('Access denied.');
+                printError('Access denied.');
                 process.exit(1);
                 break;
             default:
@@ -72,7 +80,7 @@ export async function login() {
         'refreshToken': refreshToken,
         'accessToken': accessToken
     }));
-    signale.success('Authenticated!');
+    printSuccess('Authenticated!');
 }
 
 export async function getAccessToken(): Promise<string | undefined> {
@@ -104,18 +112,18 @@ async function isAccessTokenValid(accessToken: string): Promise<boolean> {
     return false;
 }
 
-export async function me() {
+export async function showStatus() {
     const accessToken = await getAccessToken();
     if (accessToken) {
         const endpoint = 'https://api.github.com/user';
         const headers = {"Accept": "application/json", 'Authorization': `Bearer ${accessToken}`}
         const res = await fetch(endpoint, {headers: headers});
         const json = await res.json();
-        signale.info(`Logged in user: ${json['login']}`);
+        printInfo(`Logged in user: ${json['login']}`);
     }
 }
 
 export function logout() {
     clearNowapiFolder();
-    signale.success('Logged out!');
+    printSuccess('Logged out!');
 }
