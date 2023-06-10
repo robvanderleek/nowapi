@@ -12,8 +12,9 @@ export async function listHosts() {
     const result = await apiGet('host/list');
     printHeader('Your hosts:');
     for (const host of result) {
-        const url = `${getHost()}/api/hosts/${host}`;
-        console.log(`- ${chalk.green(host)} (${url})`);
+        const baseUrl = `${getHost()}/api/hosts`;
+        console.log(`- ${chalk.green(host)}`);
+        console.log(`  ${baseUrl}/${host}`);
     }
 }
 

@@ -1,7 +1,6 @@
 import signale from "signale";
 import {apiGet, apiPost} from "./api";
 import {getHost, printHeader} from "../utils";
-import terminalLink from "terminal-link";
 import chalk from "chalk";
 
 
@@ -15,8 +14,8 @@ export async function listEndpoints(host: string) {
     printHeader(`Endpoints on host ${host}:`);
     const baseUrl = `${getHost()}/api/hosts/${host}`;
     for (const endpoint of result) {
-        const link = terminalLink(endpoint, `${baseUrl}/${endpoint}`);
-        console.log(`- ${chalk.green(link)}`);
+        console.log(`- ${chalk.green(endpoint)}`);
+        console.log(`  ${baseUrl}/${endpoint}`);
     }
 }
 
