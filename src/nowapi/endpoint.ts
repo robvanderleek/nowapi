@@ -1,6 +1,8 @@
 import signale from "signale";
 import {apiGet, apiPost} from "./api";
-import {printHeader} from "../utils";
+import {getHost, printHeader} from "../utils";
+import terminalLink from "terminal-link";
+import chalk from "chalk";
 
 
 export async function createEndpoint(host: string, path: string, statusCode: number, body: string) {
@@ -11,8 +13,10 @@ export async function createEndpoint(host: string, path: string, statusCode: num
 export async function listEndpoints(host: string) {
     const result = await apiGet(`endpoint/list?host=${host}`);
     printHeader(`Endpoints on host ${host}:`);
+    const baseUrl = `${getHost()}/api/hosts/${host}`;
     for (const endpoint of result) {
-        console.log(`- ${endpoint}`);
+        const link = terminalLink(endpoint, `${baseUrl}/${endpoint}`);
+        console.log(`- ${chalk.green(link)}`);
     }
 }
 
