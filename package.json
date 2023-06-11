@@ -35,7 +35,7 @@
     "test": "jest",
     "start": "yarn build && node ./dist/index.js",
     "dist": "yarn build && yarn dist:build && yarn dist:pkg:linux && yarn dist:pkg:windows && yarn dist:pkg:macos && yarn dist:bundle:macos",
-    "dist:build": "esbuild ./src/index.ts --bundle --platform=node --target=es6 --outfile=dist-esbuild/index.cjs",
+    "dist:build": "esbuild ./src/index.ts --bundle --platform=node --target=es2018 --outfile=dist-esbuild/index.cjs",
     "dist:pkg:linux": "pkg -t node18-linuxstatic-x64,node18-linuxstatic-arm64 -o binaries/nowapi-linuxstatic dist-esbuild/index.cjs",
     "dist:pkg:windows": "pkg -t node18-win-x64 -o binaries/nowapi dist-esbuild/index.cjs",
     "dist:pkg:macos": "pkg -t node18-macos-x64 -o binaries/nowapi dist-esbuild/index.cjs",
