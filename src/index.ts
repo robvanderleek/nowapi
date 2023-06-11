@@ -4,10 +4,8 @@ import 'dotenv/config';
 import {login, logout, showStatus} from "./github.js";
 import {createHost, deleteHost, listHosts} from "./nowapi/host.js";
 import {createEndpoint, deleteEndpoint, listEndpoints, showEndpoint} from "./nowapi/endpoint.js";
-import {createRequire} from "module";
 
-const require = createRequire(import.meta.url);
-const packageJson = require('../package.json');
+const version = '1.3.0';
 
 function addHostCommands() {
     const host = program.command('host').description('Host commands');
@@ -51,7 +49,7 @@ function addEndpointCommands() {
         .action((host, endpoint) => deleteEndpoint(host, endpoint));
 }
 
-program.name('nowapi').version(packageJson.version);
+program.name('nowapi').version(version);
 program
     .command('login')
     .description('Login with GitHub')

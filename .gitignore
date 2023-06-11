@@ -1,5 +1,5 @@
 dist/
-dist-ncc/
+dist-esbuild/
 node_modules/
 yarn-error.log
 *.tgz
