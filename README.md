@@ -1,8 +1,17 @@
-# NowAPI
+# NowAPI - When you need an API Now
 
 ![Logo](https://raw.githubusercontent.com/robvanderleek/nowapi/main/docs/nowapi-logo.png?raw=true)
 
-When you need an API Now.
+# Overview
+
+1. Create a new host:
+
+```shell
+$ nowapi host new
+✔ Host created: amethyst-ptarmigan-98
+```
+
+2. 
 
 # Installation
 
