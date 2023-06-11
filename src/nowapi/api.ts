@@ -15,6 +15,8 @@ export async function apiPost(endpoint: string, data?: object) {
     }
     if (res.ok) {
         return await res.json();
+    } else {
+        throw Error(res.statusText);
     }
 }
 
@@ -25,5 +27,7 @@ export async function apiGet(endpoint: string) {
     const res = await fetch(url, {headers: headers});
     if (res.ok) {
         return await res.json();
+    } else {
+        throw Error(res.statusText);
     }
 }

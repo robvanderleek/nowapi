@@ -3,6 +3,7 @@ import path from "path";
 import fs from "fs";
 import signale from "signale";
 import chalk from "chalk";
+import ora from "ora";
 
 export async function sleep(seconds: number) {
     return new Promise((r) => setTimeout(r, seconds * 1000));
@@ -43,6 +44,10 @@ export function clearNowapiFolder() {
 
 export function getHost() {
     return process.env.NOWAPI_HOST || 'https://nowapi.vercel.app';
+}
+
+export function loadingSpinner(text: string) {
+    return ora({spinner: 'earth', text: text, color: 'white'}).start();
 }
 
 export function printInfo(text: string) {
