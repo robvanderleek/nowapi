@@ -20,52 +20,52 @@ Use cases:
 
 1. Create a new virtual host:
 
-```shell
-nowapi host new
-```
+    ```shell
+    nowapi host new
+    ```
 
-Output:
+    Output:
 
-```shell
-✔ Host created: amethyst-ptarmigan-98
-```
+    ```shell
+    ✔ Host created: amethyst-ptarmigan-98
+    ```
 
 2. Add endpoints:
 
-For example, the IMDB movie top 3 as a JSON list of IMDB identifiers:
+    For example, the IMDB movie top 3 as a JSON list of IMDB identifiers:
 
-```shell
-nowapi endpoint set amethyst-ptarmigan-98 movies/top3 -b '["tt0111161", "tt0068646", "tt0468569"]'
-```
+    ```shell
+    nowapi endpoint set amethyst-ptarmigan-98 movies/top3 -b '["tt0111161", "tt0068646", "tt0468569"]'
+    ```
 
-Add endpoints for details on each movie:
+    Add endpoints for details on each movie:
 
-```shell
-nowapi endpoint set amethyst-ptarmigan-98 movie/tt0111161 -b '{"title": "The Shawshank Redemption"}'
-nowapi endpoint set amethyst-ptarmigan-98 movie/tt0068646 -b '{"title": "The Godfather"}'
-nowapi endpoint set amethyst-ptarmigan-98 movie/tt0468569 -b '{"title": "The Dark Night"}'
-```
-
+    ```shell
+    nowapi endpoint set amethyst-ptarmigan-98 movie/tt0111161 -b '{"title": "The Shawshank Redemption"}'
+    nowapi endpoint set amethyst-ptarmigan-98 movie/tt0068646 -b '{"title": "The Godfather"}'
+    nowapi endpoint set amethyst-ptarmigan-98 movie/tt0468569 -b '{"title": "The Dark Night"}'
+    ```
+    
 3. List endpoints
-
-```shell
-nowapi endpoint ls amethyst-ptarmigan-98
-```
-
-Output:
-
-```shell
-✔ Loading endpoints
-Endpoints on host amethyst-ptarmigan-98:
-- movies/top3
-  https://nowapi.vercel.app/api/hosts/amethyst-ptarmigan-98/movies/top3
-- movie/tt0111161
-  https://nowapi.vercel.app/api/hosts/amethyst-ptarmigan-98/movie/tt0111161
-- movie/tt0068646
-  https://nowapi.vercel.app/api/hosts/amethyst-ptarmigan-98/movie/tt0068646
-- movie/tt0468569
-  https://nowapi.vercel.app/api/hosts/amethyst-ptarmigan-98/movie/tt0468569
-```
+    
+   ```shell
+   nowapi endpoint ls amethyst-ptarmigan-98
+   ```
+    
+   Output:
+    
+   ```shell
+   ✔ Loading endpoints
+   Endpoints on host amethyst-ptarmigan-98:
+   - movies/top3
+     https://nowapi.vercel.app/api/hosts/amethyst-ptarmigan-98/movies/top3
+   - movie/tt0111161
+     https://nowapi.vercel.app/api/hosts/amethyst-ptarmigan-98/movie/tt0111161
+   - movie/tt0068646
+     https://nowapi.vercel.app/api/hosts/amethyst-ptarmigan-98/movie/tt0068646
+   - movie/tt0468569
+     https://nowapi.vercel.app/api/hosts/amethyst-ptarmigan-98/movie/tt0468569
+   ```
 
 # Installation
 
