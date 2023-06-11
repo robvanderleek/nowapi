@@ -23,3 +23,21 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: 'Create distribution build'
+        run: yarn dist:build
+      - name: 'Create Linux binaries'
+        run: yarn dist:pkg:linux
+      - name: 'Create Windows binary'
+        run: yarn dist:pkg:windows
+      - name: 'Create macOS binary'
+        run: yarn dist:pkg:macos
+      - name: 'Bundle macOS binary'
+        run: yarn dist:bundle:macos
+      - name: 'Add assets to release'
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            binaries/nowapi-linuxstatic-x64
+            binaries/nowapi-linuxstatic-arm64
+            binaries/nowapi-win-x64.exe
+            binaries/nowapi-macos.tgz
