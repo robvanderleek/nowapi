@@ -19,27 +19,33 @@ jobs:
       - name: 'Compile TypeScript'
         run: yarn build
       - name: 'Semantic Release'
-        id: semantic_release
+        id: semantic
         uses: cycjimmy/semantic-release-action@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: 'Create distribution build'
+        if: steps.semantic.outputs.new_release_published == 'true'
         run: yarn dist:build
       - name: 'Create Linux binaries'
+        if: steps.semantic.outputs.new_release_published == 'true'
         run: yarn dist:pkg:linux
       - name: 'Create Windows binary'
+        if: steps.semantic.outputs.new_release_published == 'true'
         run: yarn dist:pkg:windows
       - name: 'Create macOS binary'
+        if: steps.semantic.outputs.new_release_published == 'true'
         run: yarn dist:pkg:macos
       - name: 'Bundle macOS binary'
+        if: steps.semantic.outputs.new_release_published == 'true'
         run: yarn dist:bundle:macos
       - name: 'Add assets to release'
+        if: steps.semantic.outputs.new_release_published == 'true'
         uses: softprops/action-gh-release@v1
         with:
+          tag_name: ${{ steps.semantic.outputs.new_release_version }}
           files: |
             binaries/nowapi-linuxstatic-x64
             binaries/nowapi-linuxstatic-arm64
             binaries/nowapi-win-x64.exe
             binaries/nowapi-macos.tgz
-          tag_name: ${{ steps.semantic_release.outputs.new_release_version }}
