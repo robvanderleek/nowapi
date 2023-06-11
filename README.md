@@ -167,7 +167,27 @@ nowapi host ls
 ### Delete new virtual host
 
 ```shell
-nowapi host rm peach-mosquito-30
+nowapi host rm amethyst-ptarmigan-98
+```
+
+## Endpoints
+
+### Create a new endpoint
+
+```shell
+nowapi endpoint set amethyst-ptarmigan-98 movie/tt0111161 -b '{"title": "The Shawshank Redemption"}'
+```
+
+### Lists endpoints on a virtual host:
+
+```shell
+nowapi endpoint ls amethyst-ptarmigan-98
+```
+
+### Delete endpoint on a virtual host:
+
+```shell
+nowapi endpoint rm amethyst-ptarmigan-98 movie/tt0111161
 ```
 
 # Feedback, suggestions and bug reports
