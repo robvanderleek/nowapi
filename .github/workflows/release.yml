@@ -49,3 +49,18 @@ jobs:
             binaries/nowapi-linuxstatic-arm64
             binaries/nowapi-win-x64.exe
             binaries/nowapi-macos.tgz
+      - name: 'Bump homebrew formula'
+        uses: mislav/bump-homebrew-formula-action@v2
+        if: steps.semantic.outputs.new_release_published == 'true'
+        with:
+          formula-name: nowapi
+          formula-path: Formula/nowapi.rb
+          homebrew-tap: robvanderleek/homebrew-nowapi
+          base-branch: main
+          download-url: https://github.com/robvanderleek/nowapi/releases/download/${{ steps.semantic.outputs.new_release_version }}/nowapi-macos.tgz
+          commit-message: |
+            {{formulaName}} {{version}}
+
+            Created by https://github.com/mislav/bump-homebrew-formula-action
+        env:
+          COMMITTER_TOKEN: ${{ secrets.COMMITTER_TOKEN }}
