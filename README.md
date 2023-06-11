@@ -1,17 +1,20 @@
-# NowAPI - When you need an API Now
+# NowAPI - When you need an API _Now_
 
 [![CI](https://github.com/robvanderleek/nowapi/actions/workflows/ci.yml/badge.svg)](https://github.com/robvanderleek/nowapi/actions/workflows/ci.yml)
 [![npm version](https://badge.fury.io/js/nowapi-cli.svg)](https://badge.fury.io/js/nowapi-cli)
 
 ![Logo](https://raw.githubusercontent.com/robvanderleek/nowapi/main/docs/nowapi-logo.png?raw=true)
 
-Create static HTTPS REST API endpoints.
+Create static HTTPS REST-like API endpoints.
 
 Use cases:
 - Tutorials
-- Static API endpoints
+- Simple static backend API endpoints
 - Learning REST APIs
 - Debugging client software
+
+> NowAPI has just been released and therefore subject to change.
+> Your feedback is very welcome, please [open an issue](https://github.com/robvanderleek/nowapi/issues/new).
 
 # Overview
 
@@ -29,7 +32,7 @@ Output:
 
 2. Add endpoints:
 
-For example, the IMDB movie top 3 as a JSON list of IMDB IDs:
+For example, the IMDB movie top 3 as a JSON list of IMDB identifiers:
 
 ```shell
 nowapi endpoint set amethyst-ptarmigan-98 movies/top3 -b '["tt0111161", "tt0068646", "tt0468569"]'
@@ -99,12 +102,61 @@ release page](https://github.com/robvanderleek/nowapi/releases/latest).
 
 # Usage
 
-# Configuration
+Available commands and options can be listed by running the tool:
 
-# Development
+```
+nowapi
+```
+
+It's necessary that you authorize NowAPI to interact with the NowAPI backend. This can be done by logging in as described below.
+
+## Login
+
+```shell
+nowapi login
+```
+
+Cope the code and open the web page.
+
+## Logout
+
+```shell
+nowapi logout
+```
+
+## Hosts
+
+### Create a new virtual host
+
+```shell
+nowapi host new
+```
+
+### Lists your virtual hosts
+
+```shell
+nowapi host ls
+```
+
+### Delete new virtual host
+
+```shell
+nowapi host rm peach-mosquito-30
+```
 
 # Feedback, suggestions and bug reports
 
+Please create an issue here:
+https://github.com/robvanderleek/nowapi/issues
+
 # Contributing
 
+If you have suggestions for how create-issue-branch could be improved, or want
+to report a bug, [open an
+issue](https://github.com/robvanderleek/nowapi/issues)! All and
+any contributions are appreciated.
+
 # License
+
+[ISC](LICENSE) © 2023 Rob van der Leek <robvanderleek@gmail.com>
+(https://twitter.com/robvanderleek)
