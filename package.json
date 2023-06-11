@@ -30,7 +30,8 @@
   },
   "exports": "dist/index.js",
   "scripts": {
-    "build": "tsc && chmod a+x ./dist/index.js",
+    "git-info": "node src/generate-versionts.cjs > src/version.ts",
+    "build": "yarn git-info && tsc && chmod a+x ./dist/index.js",
     "test": "jest",
     "start": "yarn build && node ./dist/index.js",
     "dist": "yarn build && yarn dist:build && yarn dist:pkg:linux && yarn dist:pkg:windows && yarn dist:pkg:macos && yarn dist:bundle:macos",
@@ -45,6 +46,7 @@
     "chalk": "^4.1.2",
     "commander": "^9.4.1",
     "dotenv": "^16.1.4",
+    "node-fetch": "^3.3.1",
     "ora": "^6.3.1",
     "pino": "^8.7.0"
   },

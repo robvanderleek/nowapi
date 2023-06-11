@@ -6,15 +6,15 @@ import ora from "ora";
 
 export async function createEndpoint(host: string, path: string, statusCode: number, body: string) {
     const spinner = ora({spinner: 'earth', text: 'Setting path...', color: 'white'}).start();
-    const result = await apiPost('endpoint/create', {host, path, statusCode, body});
+    const result: any = await apiPost('endpoint/create', {host, path, statusCode, body});
     spinner.succeed(`Endpoint updated: ${result['endpoint']}`);
 }
 
 export async function listEndpoints(host: string) {
     const spinner = ora({spinner: 'earth', text: 'Loading endpoints', color: 'white'}).start();
-    const result = await apiGet(`endpoint/list?host=${host}`);
+    const result: Array<any> = await apiGet(`endpoint/list?host=${host}`);
     spinner.succeed();
-    if (result.length > 0) {
+    if (result && result.length > 0) {
         printInfo(`Endpoints on host ${host}:`);
         const baseUrl = `${getHost()}/api/hosts/${host}`;
         for (const endpoint of result) {

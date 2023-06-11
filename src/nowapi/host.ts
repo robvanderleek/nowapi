@@ -4,13 +4,13 @@ import {apiGet, apiPost} from "./api.js";
 
 export async function createHost() {
     const spinner = loadingSpinner('Creating new host');
-    const result = await apiPost('host/create');
+    const result: any = await apiPost('host/create');
     spinner.succeed(`Host created: ${result['host']}`);
 }
 
 export async function listHosts() {
     const spinner = loadingSpinner('Loading hosts');
-    const result = await apiGet('host/list');
+    const result: Array<any> = await apiGet('host/list');
     spinner.succeed();
     if (result.length > 0) {
         printInfo('Your hosts:');

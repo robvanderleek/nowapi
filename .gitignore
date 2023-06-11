@@ -6,3 +6,4 @@ yarn-error.log
 tmp
 .env
 binaries/
+src/version.ts

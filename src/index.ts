@@ -4,8 +4,7 @@ import 'dotenv/config';
 import {login, logout, showStatus} from "./github.js";
 import {createHost, deleteHost, listHosts} from "./nowapi/host.js";
 import {createEndpoint, deleteEndpoint, listEndpoints, showEndpoint} from "./nowapi/endpoint.js";
-
-const version = '1.3.0';
+import version from "./version.js";
 
 function addHostCommands() {
     const host = program.command('host').description('Host commands');
@@ -49,7 +48,7 @@ function addEndpointCommands() {
         .action((host, endpoint) => deleteEndpoint(host, endpoint));
 }
 
-program.name('nowapi').version(version);
+program.name('nowapi').version(version.version);
 program
     .command('login')
     .description('Login with GitHub')
