@@ -55,6 +55,7 @@ jobs:
         with:
           formula-name: nowapi
           formula-path: Formula/nowapi.rb
+          tag-name: ${{ steps.semantic.outputs.new_release_version }}
           homebrew-tap: robvanderleek/homebrew-nowapi
           base-branch: main
           download-url: https://github.com/robvanderleek/nowapi/releases/download/${{ steps.semantic.outputs.new_release_version }}/nowapi-macos.tgz
