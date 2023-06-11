@@ -7,30 +7,38 @@
 1. Create a new virtual host:
 
 ```shell
-$ nowapi host new
-✔ Host created: amethyst-ptarmigan-98
+nowapi host new
 ```
 
 2. Add endpoints:
 
 ```shell
 nowapi endpoint set amethyst-ptarmigan-98 movies/top3 -b '["tt0111161", "tt0068646", "tt0468569"]'
-✔ Endpoint updated: movies/top3
 ```
 
 ```shell
 nowapi endpoint set amethyst-ptarmigan-98 movie/tt0111161 -b '{"title": "The Shawshank Redemption"}'
-✔ Endpoint updated: movie/tt0111161
-```
-
-```shell
 nowapi endpoint set amethyst-ptarmigan-98 movie/tt0068646 -b '{"title": "The Godfather"}'
-✔ Endpoint updated: movie/tt0111161
+nowapi endpoint set amethyst-ptarmigan-98 movie/tt0468569 -b '{"title": "The Dark Night"}'
+```
+
+3. List endpoints
+
+```shell
+nowapi endpoint ls amethyst-ptarmigan-98
 ```
 
 ```shell
-nowapi endpoint set amethyst-ptarmigan-98 movie/tt0468569 -b '{"title": "The Dark Night"}'
-✔ Endpoint updated: movie/tt0111161
+✔ Loading endpoints
+Endpoints on host amethyst-ptarmigan-98:
+- movies/top3
+  https://nowapi.vercel.app/api/hosts/amethyst-ptarmigan-98/movies/top3
+- movie/tt0111161
+  https://nowapi.vercel.app/api/hosts/amethyst-ptarmigan-98/movie/tt0111161
+- movie/tt0068646
+  https://nowapi.vercel.app/api/hosts/amethyst-ptarmigan-98/movie/tt0068646
+- movie/tt0468569
+  https://nowapi.vercel.app/api/hosts/amethyst-ptarmigan-98/movie/tt0468569
 ```
 
 # Installation
