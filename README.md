@@ -5,6 +5,14 @@
 
 ![Logo](https://raw.githubusercontent.com/robvanderleek/nowapi/main/docs/nowapi-logo.png?raw=true)
 
+Create static HTTPS REST API endpoints.
+
+Use cases:
+- Tutorials
+- Static API endpoints
+- Learning REST APIs
+- Debugging client software
+
 # Overview
 
 1. Create a new virtual host:
@@ -13,15 +21,21 @@
 nowapi host new
 ```
 
+Output:
+
 ```shell
 ✔ Host created: amethyst-ptarmigan-98
 ```
 
 2. Add endpoints:
 
+For example, the IMDB movie top 3 as a JSON list of IMDB IDs:
+
 ```shell
 nowapi endpoint set amethyst-ptarmigan-98 movies/top3 -b '["tt0111161", "tt0068646", "tt0468569"]'
 ```
+
+Add endpoints for details on each movie:
 
 ```shell
 nowapi endpoint set amethyst-ptarmigan-98 movie/tt0111161 -b '{"title": "The Shawshank Redemption"}'
@@ -34,6 +48,8 @@ nowapi endpoint set amethyst-ptarmigan-98 movie/tt0468569 -b '{"title": "The Dar
 ```shell
 nowapi endpoint ls amethyst-ptarmigan-98
 ```
+
+Output:
 
 ```shell
 ✔ Loading endpoints
