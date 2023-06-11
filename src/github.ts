@@ -10,18 +10,36 @@ import {
     sleep
 } from "./utils.js";
 import chalk from "chalk";
+import nodefetch from 'node-fetch';
 
 const CLIENT_ID = 'Iv1.e3052d750bc19d80';
 
-async function fetchDeviceCode() {
+interface DeviceCodeResponse {
+    device_code: string;
+    verification_uri: string;
+    user_code: string;
+    interval: number;
+}
+
+async function fetchDeviceCode(): Promise<DeviceCodeResponse> {
     const endpoint = 'https://github.com/login/device/code';
     const parameters = new URLSearchParams({client_id: CLIENT_ID});
     const headers = {"Accept": "application/json"};
-    const res = await fetch(endpoint + '?' + parameters.toString(), {method: 'POST', headers: headers});
-    return await res.json();
+    const res = await nodefetch(endpoint + '?' + parameters.toString(), {method: 'POST', headers: headers});
+    if (res.ok) {
+        return await res.json() as DeviceCodeResponse;
+    } else {
+        throw "Cloud not fetch device code from GitHub!";
+    }
 }
 
-async function fetchRequestToken(deviceCode: string) {
+interface RequestTokenResponse {
+    access_token?: string;
+    refresh_token?: string;
+    error?: string;
+}
+
+async function fetchRequestToken(deviceCode: string): Promise<RequestTokenResponse> {
     const endpoint = 'https://github.com/login/oauth/access_token';
     const parameters = new URLSearchParams({
         client_id: CLIENT_ID,
@@ -29,11 +47,20 @@ async function fetchRequestToken(deviceCode: string) {
         grant_type: 'urn:ietf:params:oauth:grant-type:device_code'
     });
     const headers = {"Accept": "application/json"};
-    const res = await fetch(endpoint + '?' + parameters.toString(), {method: 'POST', headers: headers});
-    return await res.json();
+    const res = await nodefetch(endpoint + '?' + parameters.toString(), {method: 'POST', headers: headers});
+    if (res.ok) {
+        return await res.json() as RequestTokenResponse;
+    } else {
+        throw "Cloud not fetch request token from GitHub!";
+    }
 }
 
-async function fetchAccessToken(refreshToken: string) {
+interface FetchAccessTokenResponse {
+    access_token?: string;
+    refresh_token?: string;
+}
+
+async function fetchAccessToken(refreshToken: string): Promise<FetchAccessTokenResponse> {
     const endpoint = 'https://github.com/login/oauth/access_token';
     const parameters = new URLSearchParams({
         client_id: CLIENT_ID,
@@ -41,8 +68,12 @@ async function fetchAccessToken(refreshToken: string) {
         refresh_token: refreshToken
     });
     const headers = {"Accept": "application/json"};
-    const res = await fetch(endpoint + '?' + parameters.toString(), {method: 'POST', headers: headers});
-    return await res.json();
+    const res = await nodefetch(endpoint + '?' + parameters.toString(), {method: 'POST', headers: headers});
+    if (res.ok) {
+        return await res.json() as FetchAccessTokenResponse;
+    } else {
+        throw "Cloud not fetch access token from GitHub!";
+    }
 }
 
 export async function login() {
@@ -104,7 +135,7 @@ export async function getAccessToken(): Promise<string | undefined> {
 
 async function isAccessTokenValid(accessToken: string): Promise<boolean> {
     const headers = {'Authorization': `Bearer ${accessToken}`};
-    const res = await fetch('https://api.github.com/users/codertocat', {headers: headers});
+    const res = await nodefetch('https://api.github.com/users/codertocat', {headers: headers});
     const headerField = res.headers.get('X-RateLimit-Limit')
     if (headerField) {
         return parseInt(headerField) === 5000;
@@ -117,8 +148,8 @@ export async function showStatus() {
     if (accessToken) {
         const endpoint = 'https://api.github.com/user';
         const headers = {"Accept": "application/json", 'Authorization': `Bearer ${accessToken}`}
-        const res = await fetch(endpoint, {headers: headers});
-        const json = await res.json();
+        const res = await nodefetch(endpoint, {headers: headers});
+        const json = await res.json() as { login: string };
         printInfo(`Logged in user: ${json['login']}`);
     }
 }

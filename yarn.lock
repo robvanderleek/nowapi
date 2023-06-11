@@ -977,9 +977,9 @@
   integrity sha512-I0vDR0rdtP8p2lGMzvsJzbhdOWy405HcGovrspJ8RRibHnyRgggUSNO5AIox5LmqiwmatHKYsvj6VGFHkqS7lA==
 
 "@octokit/types@^9.0.0", "@octokit/types@^9.2.3":
-  version "9.3.0"
-  resolved "https://registry.yarnpkg.com/@octokit/types/-/types-9.3.0.tgz#2e3433a9999f200a6cfc431c81b27ac38fd0d23d"
-  integrity sha512-ZNO1In0QuWZLDngSLcn5H4ExRhYOd1rDcWnwc/LuR55cO1d6Sex6+T6RiSQwp/tyEg7eNWx+MUdJGL7Fu1kMjw==
+  version "9.3.1"
+  resolved "https://registry.yarnpkg.com/@octokit/types/-/types-9.3.1.tgz#9eb20390f8cfcc975635d813f9a2094efd4aa2dd"
+  integrity sha512-zfJzyXLHC42sWcn2kS+oZ/DRvFZBYCCbfInZtwp1Uopl1qh6pRg4NSP/wFX1xCOpXvEkctiG1sxlSlkZmzvxdw==
   dependencies:
     "@octokit/openapi-types" "^18.0.0"
 
@@ -1177,9 +1177,9 @@
   integrity sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==
 
 "@types/node@*":
-  version "20.2.6"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.2.6.tgz#f8f4cdcf9bc74fffcb44a9e1e3f3586d583dac24"
-  integrity sha512-GQBWUtGoefMEOx/vu+emHEHU5aw6JdDoEtZhoBrHFPZbA/YNRFfN996XbBASEWdvmLSLyv9FKYppYGyZjCaq/g==
+  version "20.3.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.3.0.tgz#719498898d5defab83c3560f45d8498f58d11938"
+  integrity sha512-cumHmIAf6On83X7yP+LrsEyUOf/YlociZelmpRYaGFydoaPdxdt80MAbu6vWerQT2COCp2nPvHdsbD7tHn/YlQ==
 
 "@types/node@^18.11.10":
   version "18.16.17"
@@ -1638,9 +1638,9 @@ camelcase@^6.2.0:
   integrity sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==
 
 caniuse-lite@^1.0.30001489:
-  version "1.0.30001498"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001498.tgz#84e4ee2d03e0e4f8a04a508853b75a980c703201"
-  integrity sha512-LFInN2zAwx3ANrGCDZ5AKKJroHqNKyjXitdV5zRIVIaQlXKj3GmxUKagoKsjqUfckpAObPCEWnk5EeMlyMWcgw==
+  version "1.0.30001499"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001499.tgz#0235c127d9795c82aaf0a7f43e24018549dac659"
+  integrity sha512-IhoQqRrW6WiecFcfZgoJS1YLEN1/HR1vHP5WNgjCARRW7KUNToHHTX3FrwCM+y4zkRa48D9rE90WFYc2IWhDWQ==
 
 cardinal@^2.1.1:
   version "2.1.1"
@@ -1700,9 +1700,9 @@ cidr-regex@^3.1.1:
     ip-regex "^4.1.0"
 
 cjs-module-lexer@^1.0.0:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/cjs-module-lexer/-/cjs-module-lexer-1.2.2.tgz#9f84ba3244a512f3a54e5277e8eef4c489864e40"
-  integrity sha512-cOU9usZw8/dXIXKtwa8pM0OTJQuJkxMN6w30csNRUerHfeQ5R6U3kkU/FtJeIf3M202OHfY2U8ccInBG7/xogA==
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/cjs-module-lexer/-/cjs-module-lexer-1.2.3.tgz#6c370ab19f8a3394e318fe682686ec0ac684d107"
+  integrity sha512-0TNiGstbQmCFwt4akjjBg5pLRTSyj/PkWQ1ZoO2zntmg9yLqSRxwEa4iCfQLGjqhiqBfOJa7W/E8wfGrTDmlZQ==
 
 clean-stack@^2.0.0:
   version "2.2.0"

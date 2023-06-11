@@ -1,6 +1,6 @@
 import {getHost} from "../utils.js";
 import {getAccessToken} from "../github.js";
-import fetch from 'node-fetch';
+import nodefetch from 'node-fetch';
 
 export async function apiPost<T>(endpoint: string, data?: object) {
     const accessToken = await getAccessToken();
@@ -13,13 +13,13 @@ export async function apiPost<T>(endpoint: string, data?: object) {
             'Authorization': `Bearer ${accessToken}`
         };
         const body = JSON.stringify(data);
-        res = await fetch(url, {method: 'POST', headers: headers, body: body});
+        res = await nodefetch(url, {method: 'POST', headers: headers, body: body});
     } else {
         const headers = {"Accept": "application/json", 'Authorization': `Bearer ${accessToken}`};
-        res = await fetch(url, {method: 'POST', headers: headers});
+        res = await nodefetch(url, {method: 'POST', headers: headers});
     }
     if (res.ok) {
-        return await res.json() as T;
+        return await res.json();
     } else {
         throw Error(res.statusText);
     }
@@ -29,7 +29,7 @@ export async function apiGet<T>(endpoint: string): Promise<T> {
     const accessToken = await getAccessToken();
     const url = `${getHost()}/api/${endpoint}`;
     const headers = {"Accept": "application/json", 'Authorization': `Bearer ${accessToken}`}
-    const res = await fetch(url, {headers: headers});
+    const res = await nodefetch(url, {headers: headers});
     if (res.ok) {
         return await res.json() as T;
     } else {

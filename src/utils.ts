@@ -1,7 +1,6 @@
 import os from "os";
 import path from "path";
 import fs from "fs";
-import signale from "signale";
 import chalk from "chalk";
 import ora from "ora";
 
@@ -22,19 +21,19 @@ export function initNowapiFolder() {
     const folderLocation = getNowapiFolderLocation();
     if (!fs.existsSync(folderLocation)) {
         fs.mkdirSync(folderLocation, {recursive: true});
-        signale.log(`Created NowAPI cache folder: ${folderLocation}`);
+        printInfo(`Created NowAPI cache folder: ${folderLocation}`);
     }
     return folderLocation;
 }
 
-export function readCredentialsFile(): {accessToken: string, refreshToken: string} {
+export function readCredentialsFile(): { accessToken: string, refreshToken: string } {
     const nowapiFolder = initNowapiFolder();
     const credentialsFile = path.join(nowapiFolder, 'credentials.json');
     if (!fs.existsSync(credentialsFile)) {
         throw new Error('Could not find credentials file')
     }
     const content = fs.readFileSync(credentialsFile).toString();
-    return JSON.parse(content) as {accessToken: string, refreshToken: string};
+    return JSON.parse(content) as { accessToken: string, refreshToken: string };
 }
 
 export function clearNowapiFolder() {
