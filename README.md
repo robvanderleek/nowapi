@@ -53,7 +53,7 @@ Use cases:
    ```
     
    Output:
-    
+
    ```shell
    ✔ Loading endpoints
    Endpoints on host amethyst-ptarmigan-98:
@@ -66,6 +66,32 @@ Use cases:
    - movie/tt0468569
      https://nowapi.vercel.app/api/hosts/amethyst-ptarmigan-98/movie/tt0468569
    ```
+
+4. Use endpoints
+
+    List movie top-3:
+ 
+    ```shell
+    curl https://nowapi.vercel.app/api/hosts/amethyst-ptarmigan-98/movies/top3
+    ```
+    
+    Output:
+
+    ```shell
+    ["tt0111161", "tt0068646", "tt0468569"]
+    ```
+
+    Get movie by identifier:
+ 
+    ```shell
+    curl https://nowapi.vercel.app/api/hosts/amethyst-ptarmigan-98/movie/tt0068646
+    ```
+   
+    Output:
+ 
+    ```shell
+    {"title": "The Godfather"}
+    ``` 
 
 # Installation
 
