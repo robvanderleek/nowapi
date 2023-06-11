@@ -1,5 +1,8 @@
 # NowAPI - When you need an API Now
 
+[![CI](https://github.com/robvanderleek/nowapi/actions/workflows/ci.yml/badge.svg)](https://github.com/robvanderleek/nowapi/actions/workflows/ci.yml)
+[![npm version](https://badge.fury.io/js/nowapi-cli.svg)](https://badge.fury.io/js/nowapi-cli)
+
 ![Logo](https://raw.githubusercontent.com/robvanderleek/nowapi/main/docs/nowapi-logo.png?raw=true)
 
 # Overview
@@ -8,6 +11,10 @@
 
 ```shell
 nowapi host new
+```
+
+```shell
+✔ Host created: amethyst-ptarmigan-98
 ```
 
 2. Add endpoints:
