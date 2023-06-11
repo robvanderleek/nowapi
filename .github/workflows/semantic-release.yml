@@ -19,6 +19,7 @@ jobs:
       - name: 'Compile TypeScript'
         run: yarn build
       - name: 'Semantic Release'
+        id: semantic_release
         uses: cycjimmy/semantic-release-action@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -41,3 +42,4 @@ jobs:
             binaries/nowapi-linuxstatic-arm64
             binaries/nowapi-win-x64.exe
             binaries/nowapi-macos.tgz
+          tag_name: ${{ steps.semantic_release.outputs.new_release_version }}
