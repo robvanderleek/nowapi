@@ -5,8 +5,4 @@ yarn-error.log
 *.tgz
 tmp
 .env
-nowapi
-nowapi-linuxstatic-arm64
-nowapi-linuxstatic-x64
-nowapi-macos.tar.gz
-nowapi.exe
+binaries/

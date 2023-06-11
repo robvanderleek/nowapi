@@ -53,7 +53,7 @@ jobs:
       if: startsWith(github.ref, 'refs/tags/')
       with:
         files: |
-          nowapi-linuxstatic-x64
-          nowapi-linuxstatic-arm64
-          nowapi-win-x64.exe
-          nowapi-macos.tgz
+          binaries/nowapi-linuxstatic-x64
+          binaries/nowapi-linuxstatic-arm64
+          binaries/nowapi-win-x64.exe
+          binaries/nowapi-macos.tgz
