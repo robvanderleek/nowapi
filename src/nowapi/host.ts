@@ -3,15 +3,15 @@ import {getHost, loadingSpinner, printInfo} from "../utils.js";
 import {apiGet, apiPost} from "./api.js";
 
 export async function createHost() {
-    const spinner = loadingSpinner('Creating new host');
+    loadingSpinner.start('Creating new host');
     const result: any = await apiPost('host/create');
-    spinner.succeed(`Host created: ${result['host']}`);
+    loadingSpinner.succeed(`Host created: ${result['host']}`);
 }
 
 export async function listHosts() {
-    const spinner = loadingSpinner('Loading hosts');
+    loadingSpinner.start('Loading hosts');
     const result: Array<any> = await apiGet('host/list');
-    spinner.succeed();
+    loadingSpinner.succeed();
     if (result.length > 0) {
         printInfo('Your hosts:');
         for (const host of result) {
@@ -25,7 +25,7 @@ export async function listHosts() {
 }
 
 export async function deleteHost(host: string) {
-    const spinner = loadingSpinner('Deleting host');
+    loadingSpinner.start('Deleting host');
     await apiPost('host/delete', {name: host});
-    spinner.succeed(`Host deleted: ${host}`);
+    loadingSpinner.succeed(`Host deleted: ${host}`);
 }

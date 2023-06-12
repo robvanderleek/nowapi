@@ -30,7 +30,7 @@ export function readCredentialsFile(): { accessToken: string, refreshToken: stri
     const nowapiFolder = initNowapiFolder();
     const credentialsFile = path.join(nowapiFolder, 'credentials.json');
     if (!fs.existsSync(credentialsFile)) {
-        throw new Error('Could not find credentials file')
+        throw new Error('Could not find credentials file, please login')
     }
     const content = fs.readFileSync(credentialsFile).toString();
     return JSON.parse(content) as { accessToken: string, refreshToken: string };
@@ -45,9 +45,7 @@ export function getHost() {
     return process.env.NOWAPI_HOST || 'https://nowapi.vercel.app';
 }
 
-export function loadingSpinner(text: string) {
-    return ora({spinner: 'earth', text: text, color: 'white'}).start();
-}
+export const loadingSpinner = ora({spinner: 'earth', color: 'white'});
 
 export function printInfo(text: string) {
     console.log(chalk.bold(text));

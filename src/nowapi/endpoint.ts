@@ -27,9 +27,9 @@ export async function listEndpoints(host: string) {
 }
 
 export async function showEndpoint(host: string, endpoint: string) {
-    const spinner = loadingSpinner('Loading endpoint')
+    loadingSpinner.start('Loading endpoint')
     const result = await apiGet(`endpoint/show?` + new URLSearchParams({host: host, endpoint: endpoint}));
-    spinner.succeed();
+    loadingSpinner.succeed();
     if (result) {
     } else {
         printInfo('Endpoint not found');

@@ -5,23 +5,36 @@ import {login, logout, showStatus} from "./github.js";
 import {createHost, deleteHost, listHosts} from "./nowapi/host.js";
 import {createEndpoint, deleteEndpoint, listEndpoints, showEndpoint} from "./nowapi/endpoint.js";
 import version from "./version.js";
+import {loadingSpinner} from "./utils.js";
+
+function actionErrorHandler(error: Error) {
+    if (loadingSpinner.isSpinning) {
+        loadingSpinner.fail(error.message);
+    } else {
+        program.error(error.message);
+    }
+}
+
+export function actionRunner(fn: (...args: any[]) => Promise<any>) {
+    return (...args: any[]) => fn(...args).catch(actionErrorHandler);
+}
 
 function addHostCommands() {
     const host = program.command('host').description('Host commands');
     host
         .command('new')
         .description('Create new host')
-        .action(() => createHost());
+        .action(actionRunner(() => createHost()));
     host
         .command('list')
         .alias('ls')
         .description('List hosts')
-        .action(() => listHosts());
+        .action(actionRunner(() => listHosts()));
     host
         .command('remove <host>')
         .alias('rm')
         .description('Delete host')
-        .action((host) => deleteHost(host));
+        .action(actionRunner((host) => deleteHost(host)));
 }
 
 function addEndpointCommands() {
@@ -36,23 +49,23 @@ function addEndpointCommands() {
         .command('list <host>')
         .alias('ls')
         .description('List endpoints')
-        .action((host) => listEndpoints(host));
+        .action(actionRunner((host) => listEndpoints(host)));
     endpoint
         .command('show <host> <endpoint>')
         .description('Show endpoint')
-        .action((host, endpoint) => showEndpoint(host, endpoint));
+        .action(actionRunner((host, endpoint) => showEndpoint(host, endpoint)));
     endpoint
         .command('remove <host> <path>')
         .alias('rm')
         .description('Delete endpoint')
-        .action((host, endpoint) => deleteEndpoint(host, endpoint));
+        .action(actionRunner((host, endpoint) => deleteEndpoint(host, endpoint)));
 }
 
 program.name('nowapi').version(version.version);
 program
     .command('login')
     .description('Login with GitHub')
-    .action(() => login());
+    .action(actionRunner(() => login()));
 program
     .command('logout')
     .description('Logout')
@@ -60,9 +73,13 @@ program
 program
     .command('status')
     .description('Show status information')
-    .action(() => showStatus());
+    .action(actionRunner(() => showStatus()));
 
 addHostCommands();
 addEndpointCommands();
 
-program.parse(process.argv);
+try {
+    program.parse(process.argv);
+} catch (e) {
+    loadingSpinner.fail(`Could not find credentials file: ${e}`);
+}
