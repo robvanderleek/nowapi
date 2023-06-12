@@ -5,7 +5,10 @@
 
 ![Logo](https://raw.githubusercontent.com/robvanderleek/nowapi/main/docs/nowapi-logo.png?raw=true)
 
-Create static HTTPS REST-like API endpoints.
+Instantaneously create static HTTPS REST-like API endpoints.
+
+When you don't want to go through all the hassle of setting up a REST API
+backend, NowAPI is the tool for you.
 
 Use cases:
 - Tutorials
