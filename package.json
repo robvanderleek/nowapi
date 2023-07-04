@@ -1,6 +1,6 @@
 {
   "name": "nowapi-cli",
-  "version": "1.11.0",
+  "version": "1.11.1",
   "author": "robvanderleek@gmail.com",
   "description": "NowAPI CLI",
   "type": "module",
